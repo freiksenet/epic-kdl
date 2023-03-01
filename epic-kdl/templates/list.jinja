@@ -198,7 +198,11 @@
       </div>
       {% for weapon in unit.weapons %}
         <div class="row">
-          <div class="col-4 col-lg-4">{{ weapon.name }}</div>
+          <div class="col-4 col-lg-4">
+            {% if weapon.x.is_some() %}
+              {{ weapon.x.unwrap() }}x
+            {% endif %}{{ weapon.name }}
+          </div>
           <div class="col-2 col-lg-2 col-xxl-1 text-center">{{ weapon.range() }}</div>
           <div class="col">{{ weapon.firepower.join(", ") }}</div>
         </div>

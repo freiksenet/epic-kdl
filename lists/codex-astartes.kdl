@@ -367,7 +367,7 @@ army_list \
         }
         weapon "Twin Lascannon" {
           range "45cm"
-          firepower "AT4++"
+          firepower "AT4+"
         }
       }
       loadout {
@@ -401,7 +401,7 @@ army_list \
       ff 4
       weapon "Twin Lascannon" x=2 {
         range "45cm"
-        firepower "AT4++"
+        firepower "AT4+"
       }
       weapon "Twin Heavy Bolter" {
         range "30cm"
