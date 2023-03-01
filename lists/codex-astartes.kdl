@@ -155,6 +155,18 @@ army_list \
         unit 1 "Supreme Commander"
       }
     }
+    // upgrade "Dreadnoughts" {
+
+    // }
+    //     Dreadnoughts	Add up to two Dreadnoughts	+50 points each
+    // Hunter	Add one Hunter	+75 points
+    // Land Raiders	Add up to four Land Raiders	+75 points each
+    // +125 points per pair
+    // Razorbacks	Add any number of Razorbacks, up to the number required to transport the formation	+25 points each
+    // Snipers	Give up to four Scout units Sniper	+10 points each
+    // Typhoons	Replace up to five Land Speeders with an equal number of Land Speeder Typhoons	+10 points each
+    // Vindicators	Add up to two Vindicators	+50 points each
+    // +75 points per pair
   }
 
   forces "Space Marine Forces" {
@@ -206,7 +218,7 @@ army_list \
       cc 3
       ff 5
       weapon "Bolt Pistols" {
-        range "15"
+        range "15cm"
         firepower "Small Arms"
       }
       notes "Jump Packs"
@@ -219,7 +231,7 @@ army_list \
       cc 3
       ff 4
       weapon "Twin Bolters" {
-        range "15"
+        range "15cm"
         firepower "Small Arms"
       }
       notes "Mounted"
@@ -232,7 +244,7 @@ army_list \
       cc 5
       ff 3
       weapon "Missile Launcher" x=2 {
-        range "45"
+        range "45cm"
         firepower "AP5+/AT6+"
       }
     }
@@ -244,7 +256,7 @@ army_list \
       cc 4
       ff 5
       weapon "Heavy Bolter" {
-        range "30"
+        range "30cm"
         firepower "AP5+"
       }
       notes "Infiltrator" "Scout"
@@ -257,79 +269,343 @@ army_list \
       cc 4
       ff 4
       weapon "Missile Launcher" {
-        range "45"
+        range "45cm"
         firepower "AP5+/AT6+"
       }
     }
-    //     Terminator	INF	15cm	4+	3+	3+
-    // 2× Assault Cannon	30cm	AP5+/AT5+
-    // Power Weapons	(bc)	Assault WeaponsEA(+1)MW
-    // Reinforced ArmourTeleportThick Rear Armour
-    // Attack Bike	LV	35cm	4+	5+	5+
-    // Heavy Bolter	30cm	AP5+
-    // Land Speeder	LV	35cm	4+	6+	5+
-    // Multi-melta	15cm	MW5+
-    // and	(15cm)	Small ArmsMW
-    // ScoutSkimmer
-    // Land Speeder Tornado	LV	35cm	4+	6+	5+
-    // Assault Cannon	30cm	AP5+/AT5+
-    // Heavy Bolter	30cm	AP5+
-    // ScoutSkimmer
-    // Land Speeder Typhoon	LV	35cm	4+	6+	5+
-    // Twin Typhoon Missile	45cm	AP3+/AT5+
-    // Heavy Bolter	30cm	AP5+
-    // ScoutSkimmer
-    // Dreadnought	AV	15cm	3+	4+	4+
-    // 0–1× Missile Launcher	45cm	AP5+/AT6+
-    // 0–1× Twin Lascannon	45cm	AT4+
-    // 0–1× Assault Cannon	30cm	AP5+/AT5+
-    // 0–1× Power Fist	(bc)	Assault WeaponsEA(+1)MW
-    // Walker Armed with either a Missile Launcher and Twin Lascannon, or an Assault Cannon and Power Fist.
-    // Hunter	AV	30cm	5+	6+	6+
-    // Hunter-Killer	60cm	AT4+/AA4+
-    // Land Raider	AV	25cm	4+	6+	4+
-    // 2× Twin Lascannon	45cm	AT4+
-    // Twin Heavy Bolter	30cm	AP4+
-    // Reinforced ArmourThick Rear ArmourTransport May transport one Terminator unit or two infantry units without Jump Packs or Mounted.
-    // Predator Annihilator	AV	30cm	4+	6+	5+
-    // Twin Lascannon	45cm	AT4+
-    // 2× Lascannon	45cm	AT5+
-    // Predator Destructor	AV	30cm	4+	6+	3+
-    // Autocannon	45cm	AP5+/AT6+
-    // 2× Heavy Bolter	30cm	AP5+
-    // Razorback	AV	30cm	5+	6+	5+
-    // (4+)
-    // 0–1× Twin Lascannon	45cm	AT4+
-    // 0–1× Twin Heavy Bolter	30cm	AP4+
-    // Transport May transport one infantry unit (except a Terminator unit) without Jump Packs or Mounted. Armed with either a Twin Lascannon or a Twin Heavy Bolter. Razorbacks armed with a Twin Heavy Bolter have their firefight value increased to 4+.
-    // Rhino	AV	30cm	5+	6+	6+
-    // Storm Bolter	(15cm)	Small Arms
-    // Transport May transport two infantry units (except Terminator units) without Jump Packs or Mounted.
-    // Vindicator	AV	25cm	4+	6+	4+
-    // Demolisher	30cm	AP3+/AT4+IC
-    // Walker
-    // Whirlwind	AV	30cm	5+	6+	5+
-    // Whirlwind	45cm	1BPInd
-    // Landing Craft	AC/WE	Bomber	4+	5+	3+
-    // 2× Twin Lascannon	45cm	AT4+
-    // 3× Twin Heavy Bolter	15cm	AP4+/AA5+
-    // Damage Capacity 4FearlessPlanetfallReinforced ArmourTransport May transport twelve infantry units, Attack Bikes or Dreadnoughts; Terminator units and Dreadnoughts count as two units each; plus any six armoured vehicle units (except Dreadnoughts); Land Raiders count as one and a half units each, rounding up. Critical Hit Effect: The unit and all units being carried are destroyed. All units within 5cm suffer a hit.
-    // Thunderhawk Gunship	AC/WE	Bomber	4+	6+	4+
-    // Battle Cannon	75cm	AP4+/AT4+FxF
-    // 2× Twin Heavy Bolter	30cm	AP4+/AA5+FxF
-    // Twin Heavy Bolter	15cm	AP4+/AA5+Left
-    // Twin Heavy Bolter	15cm	AP4+/AA5+Right
-    // Damage Capacity 2PlanetfallReinforced ArmourTransport May transport eight infantry units, Attack Bikes or Dreadnoughts; Terminator units and Dreadnoughts count as two units each. Critical Hit Effect: The unit and all units being carried are destroyed.
-    // Battle Barge	SC	n/a	n/a	n/a	n/a
-    // Orbital Bombardment	n/a	14BPMW
-    // Slow and SteadyTransport May transport 60 infantry units, Attack Bikes, or Dreadnoughts; plus 60 armoured vehicle units (except Dreadnoughts); plus nine Thunderhawk Gunships and enough Drop Pods or Landing Craft to transport any other units being carried.
-    // Strike Cruiser	SC	n/a	n/a	n/a	n/a
-    // Orbital Bombardment	n/a	5BPMW
-    // Transport May transport 20 infantry units, Attack Bikes, or Dreadnoughts; plus 20 light vehicles or armoured vehicle units (except Attack Bikes and Dreadnoughts); plus six Thunderhawk Gunships and enough Drop Pods or Landing Craft to transport any other units being carried.
-    // Drop Pod	Special	n/a	n/a	n/a	n/a
-    // Deathwind	15cm	AP5+/AT5+
-    // PlanetfallTransport May transport one formation of only the following units: Devastator, Dreadnought, Tactical. After the drop pod lands, its Deathwind attacks all enemy units within 15cm. Each enemy formation attacked receives a Blast marker for coming under fire, and an extra Blast marker for each casualty. Then any troops carried in the drop pod must disembark within 5cm of the drop pod or within 5cm of another unit from the same formation that has already landed, so long as all units are placed within 15cm of the drop pod. Drop pod models should be removed from the board once the formation they transport has disembarked.
-    //
+
+    unit "Terminator" {
+      unit-type "INF"
+      speed 15
+      armour 4
+      cc 3
+      ff 3
+      weapon "Assault Cannon" x=2 {
+        range "30cm"
+        firepower "AP5+/AT5+"
+      }
+      weapon "Power Weapons" {
+        range "(bc)"
+        firepower "Assault Weapons" "EA(+1)" "MW"
+      }
+      notes "Reinforced Armour" "Teleport" "Thick Rear Armour"
+    }
+
+    unit "Attack Bike" {
+      unit-type "LV"
+      speed 35
+      armour 4
+      cc 5
+      ff 5
+      weapon "Heavy Bolter" {
+        range "30cm"
+        firepower "AP5+"
+      }
+    }
+
+    unit "Land Speeder" {
+      unit-type "LV"
+      speed 35
+      armour 4
+      cc 6
+      ff 5
+      weapon "Multi-melta" {
+        range "15cm"
+        firepower "MW5+"
+      }
+      weapon "Multi-melta" {
+        range "(15cm)"
+        firepower "Small Arms" "MW"
+      }
+      notes "Scout" "Skimmer"
+    }
+
+    unit "Land Speeder Tornado" {
+      unit-type "LV"
+      speed 35
+      armour 4
+      cc 6
+      ff 5
+      weapon "Assault Cannon" {
+        range "30cm"
+        firepower "AP5+/AT5+"
+      }
+      weapon "Heavy Bolter" {
+        range "30cm"
+        firepower "AP5+"
+      }
+      notes "Scout" "Skimmer"
+    }
+
+    unit "Land Speeder Typhoon" {
+      unit-type "LV"
+      speed 35
+      armour 4
+      cc 6
+      ff 5
+      weapon "Twin Typhoon Missile" {
+        range "45cm"
+        firepower "AP3+/AT5+"
+      }
+      weapon "Heavy Bolter" {
+        range "30cm"
+        firepower "AP5+"
+      }
+      notes "Scout" "Skimmer"
+    }
+
+    unit "Dreadnought" {
+      unit-type "AV"
+      speed 15
+      armour 3
+      cc 4
+      ff 4
+      loadout {
+        weapon "Missile Launcher" {
+          range "45cm"
+          firepower "AP5+/AT6+"
+        }
+        weapon "Twin Lascannon" {
+          range "45cm"
+          firepower "AT4++"
+        }
+      }
+      loadout {
+        weapon "Assault Cannon" {
+          range "30cm"
+          firepower "AP5+/AT5+"
+        }
+        weapon "Power Fist" {
+          range "bc"
+          firepower "Assault Weapons" "EA(+1)" "MW"
+        }
+      }
+      notes "Walker"
+    }
+    unit "Hunter" {
+      unit-type "AV"
+      speed 30
+      armour 5
+      cc 6
+      ff 6
+      weapon "Hunter-Killer" {
+        range "60cm"
+        firepower "AT4+/AA4+"
+      }
+    }
+    unit "Land Raider" {
+      unit-type "AV"
+      speed 25
+      armour 4
+      cc 6
+      ff 4
+      weapon "Twin Lascannon" x=2 {
+        range "45cm"
+        firepower "AT4++"
+      }
+      weapon "Twin Heavy Bolter" {
+        range "30cm"
+        firepower "AP4+"
+      }
+      notes \
+            "Reinforced Armour" \
+            "Thick Rear Armour" \
+            "Transport" \
+            "May transport one Terminator unit or two infantry units without Jump Packs or Mounted."
+    }
+
+    unit "Predator Annihilator" {
+      unit-type "AV"
+      speed 30
+      armour 4
+      cc 6
+      ff 5
+      weapon "Twin Lascannon" {
+        range "45cm"
+        firepower "AT4+"
+      }
+      weapon "Lascannon" x=2 {
+        range "45cm"
+        firepower "AT5+"
+      }
+    }
+
+    unit "Predator Destructor" {
+      unit-type "AV"
+      speed 30
+      armour 4
+      cc 6
+      ff 3
+      weapon "Autocannon" {
+        range "45cm"
+        firepower "AP5+/AT6+"
+      }
+      weapon "Heavy Bolter" x=2 {
+        range "30cm"
+        firepower "AP5+"
+      }
+    }
+
+    unit "Razorback" {
+      unit-type "AV"
+      speed 30
+      armour 5
+      cc 6
+      loadout {
+        ff 5
+        weapon "Twin Lascannon" {
+          range "45cm"
+          firepower "AT4+"
+        }
+      }
+      loadout {
+        ff 4
+        weapon "Twin Heavy Bolter" {
+          range "30cm"
+          firepower "AP4+"
+        }
+      }
+      notes \
+            "Transport" \
+            "May transport one infantry unit (except a Terminator unit) without Jump Packs or Mounted."
+    }
+
+    unit "Rhino" {
+      unit-type "AV"
+      speed 30
+      armour 5
+      cc 6
+      ff 6
+
+      weapon "Storm Bolter" {
+        range "(15cm)"
+        firepower "Small Arms"
+      }
+
+      notes \
+            "Transport" \
+            "May transport two infantry units (except a Terminator unit) without Jump Packs or Mounted."
+    }
+
+    unit "Vindicator" {
+      unit-type "AV"
+      speed 30
+      armour 4
+      cc 6
+      ff 4
+      weapon "Demolisher" {
+        range "30cm"
+        firepower "AP3+/AT4+" "IC"
+      }
+      notes "Walker"
+    }
+
+    unit "Whirlwind" {
+      unit-type "AV"
+      speed 30
+      armour 5
+      cc 6
+      ff 5
+      weapon "Whirlwind" {
+        range "45cm"
+        firepower "1BP" "Ind"
+      }
+    }
+
+    unit "Landing Craft" {
+      unit-type "AC/WE"
+      ac-type "Bomber"
+      armour 4
+      cc 5
+      ff 3
+      weapon "Twin Lascannon" x=2 {
+        range "45cm"
+        firepower "AT4+"
+      }
+
+      weapon "Twin Heavy Bolter" x=3 {
+        range "30cm"
+        firepower "AP4+/AA5+"
+      }
+
+      notes \
+            "DC4" \
+            "Fearless" \
+            "Planetfall" \
+            "Reinforced Armour" \
+            "Transport" \
+            "May transport twelve infantry units, Attack Bikes or Dreadnoughts; Terminator units and Dreadnoughts count as two units each; plus any six armoured vehicle units (except Dreadnoughts); Land Raiders count as one and a half units each, rounding up." \
+            "Critical Hit Effect: The unit and all units being carried are destroyed. All units within 5cm suffer a hit."
+    }
+
+    unit "Landing Craft" {
+      unit-type "AC/WE"
+      ac-type "Bomber"
+      armour 4
+      cc 6
+      ff 4
+      weapon "Battle Cannon" x=2 {
+        range "45cm"
+        firepower "AP4+/AT4+" "FxF"
+      }
+
+      weapon "Twin Heavy Bolter" x=2 {
+        range "30cm"
+        firepower "AP4+/AA5+" "FxF"
+      }
+
+      weapon "Twin Heavy Bolter" {
+        range "30cm"
+        firepower "AP4+/AA5+" "Left"
+      }
+
+      weapon "Twin Heavy Bolter" {
+        range "30cm"
+        firepower "AP4+/AA5+" "Right"
+      }
+
+      notes \
+            "DC2" \
+            "Planetfall" \
+            "Reinforced Armour" \
+            "Transport" \
+            "May transport eight infantry units, Attack Bikes or Dreadnoughts; Terminator units and Dreadnoughts count as two units each." \
+            "Critical Hit Effect: The unit and all units being carried are destroyed."
+    }
+
+    unit "Battle Barge" {
+      unit-type "SC"
+      weapon "Orbital Bombardment" {
+        firepower "14BP" "MW"
+      }
+      notes \
+            "Slow and Steady" \
+            "Transport" \
+            "May transport 60 infantry units, Attack Bikes, or Dreadnoughts; plus 60 armoured vehicle units (except Dreadnoughts); plus nine Thunderhawk Gunships and enough Drop Pods or Landing Craft to transport any other units being carried."
+    }
+
+    unit "Strike Cruiser" {
+      unit-type "SC"
+      weapon "Orbital Bombardment" {
+        firepower "5BP" "MW"
+      }
+      notes \
+            "Transport" \
+            "May transport 20 infantry units, Attack Bikes, or Dreadnoughts; plus 20 light vehicles or armoured vehicle units (except Attack Bikes and Dreadnoughts); plus six Thunderhawk Gunships and enough Drop Pods or Landing Craft to transport any other units being carried."
+    }
+
+    unit "Drop Pod" {
+      unit-type "Special"
+      weapon "Deathwind" {
+        range "15cm"
+        firepower "AP5+/AT5+"
+      }
+      notes \
+            "Planetfall" \
+            "Transport" \
+            "May transport one formation of only the following units: Devastator, Dreadnought, Tactical." \
+            "After the drop pod lands, its Deathwind attacks all enemy units within 15cm. Each enemy formation attacked receives a Blast marker for coming under fire, and an extra Blast marker for each casualty. Then any troops carried in the drop pod must disembark within 5cm of the drop pod or within 5cm of another unit from the same formation that has already landed, so long as all units are placed within 15cm of the drop pod. Drop pod models should be removed from the board once the formation they transport has disembarked."
+    }
   }
 
   forces "Imperial Navy Forces" {

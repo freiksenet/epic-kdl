@@ -6,58 +6,62 @@
 
 {% block body %}
   <div class="container">
-    <h1>{{ army_list.name }}</h1>
-    <blockquote>{{ fluff }}</blockquote>
+    <div class="row mb-4">
+      <div class="col">
+        <h1>{{ army_list.name }}</h1>
+        <blockquote>{{ fluff }}</blockquote>
+      </div>
+    </div>
 
-    {% for formation_group in army_list.formation_groups %}
-      {% call nested_formation_group(formation_group) %}
-    {% endfor %}
+    <div class="row mb-4 gy-2">
+      <div class="col-12">
+        <h2>Detachments</h2>
+      </div>
+      {% for formation_group in army_list.formation_groups %}
+        <div class="col-12">
+          {% call nested_formation_group(formation_group) %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row mb-4 gy-2">
+      <div class="col-12">
+        <h2>Forces</h2>
+      </div>
+      {% for forces in army_list.forces %}
+        {% call forces(forces) %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock body %}
 
 {% macro nested_formation_group(formation_group) %}
-  <table class="table">
-    {% if formation_group.nested_formation_groups.len() > 0 %}
-      <thead>
-        <tr>
-          <th colspan="4">
-            <h2>{{ formation_group.name }}</h2>
-            {% match formation_group.help_text %}
-              {% when Some with(help_text) %}
-              <p class="fw-normal">{{ help_text }}</p>
-              {% when None %}
-            {% endmatch %}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for formation_group in formation_group.nested_formation_groups %}
-          <tr>
-            <td>
-              {% call formation_group(formation_group) %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    {% endif %}
-    <tbody>
-      <tr>
-        <td>
-          {% if formation_group.formations.len() > 0 %}
-            {% call formation_group(formation_group) %}
-          {% endif %}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  {% if formation_group.nested_formation_groups.len() > 0 %}
+    <div class="border p-2">
+      <h5>{{ formation_group.name }}</h5>
+      {% match formation_group.help_text %}
+        {% when Some with(help_text) %}
+        <p class="fw-normal">{{ help_text }}</p>
+        {% when None %}
+      {% endmatch %}
+
+      {% for formation_group in formation_group.nested_formation_groups %}
+        {% call formation_group(formation_group) %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if formation_group.formations.len() > 0 %}
+    {% call formation_group(formation_group) %}
+  {% endif %}
 {% endmacro %}
 
 {% macro formation_group(formation_group) %}
-  <table class="table table-striped">
+  <table class="table table-striped table-bordered">
     <thead>
       <tr>
         <th colspan="4">
-          <h2>{{ formation_group.name }}</h2>
+          <h5>{{ formation_group.name }}</h5>
           {% match formation_group.help_text %}
             {% when Some with(help_text) %}
             <p class="fw-normal">{{ help_text }}</p>
@@ -68,7 +72,9 @@
       <tr>
         <th scope="col">Formation</th>
         <th scope="col">Units</th>
-        <th scope="col">Upgrades</th>
+        {% if formation_group.formations_have_upgrades() %}
+          <th scope="col">Upgrades</th>
+        {% endif %}
         <th scope="col">Cost</th>
       </tr>
     </thead>
@@ -81,11 +87,13 @@
               <p>{{ unit }}</p>
             {% endfor %}
           </td>
-          <td>
-            {% for upgrade in formation.upgrades %}
-              <p>{{ upgrade }}</p>
-            {% endfor %}
-          </td>
+          {% if formation_group.formations_have_upgrades() %}
+            <td>
+              {% for upgrade in formation.upgrades %}
+                <p>{{ upgrade }}</p>
+              {% endfor %}
+            </td>
+          {% endif %}
           <td>{{ formation.cost }} points</td>
         </tr>
       {% endfor %}
@@ -95,4 +103,109 @@
 
 {% macro upgrades(upgrades) %}
   <div></div>
+{% endmacro %}
+
+{% macro forces(forces) %}
+  <h3>{{ forces.name }}</h3>
+  <div class="col-12">
+    <div class="row gy-2">
+      {% for unit in forces.units %}
+        {% if loop.index0 % 2 == 0 %}
+          <div class="col-12">
+            {% call unit(unit) %}
+          </div>
+        {% else %}
+          <div class="col-12 bg-secondary-subtle">
+            {% call unit(unit) %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro unit(unit) %}
+  <div class="row">
+    <div class="col-md-2 col-sm-auto">
+      <div class="flex flex-column">
+        <div class="text-uppercase text-secondary-emphasis">
+          <small>Name</small>
+        </div>
+        <div class="fw-semibold">{{ unit.name }}</div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-xxl-3 col-md">
+      <div class="row">
+        <div class="col text-center">
+          <div class="flex flex-column">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small>Type</small>
+            </div>
+            <div>{{ unit.unit_type }}</div>
+          </div>
+        </div>
+        <div class="col text-center">
+          <div class="flex flex-column">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small>Speed</small>
+            </div>
+            <div>{{ unit.speed_or_ac_type() }}</div>
+          </div>
+        </div>
+        <div class="col text-center">
+          <div class="flex flex-column">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small>Armour</small>
+            </div>
+            <div>{{ unit.armour() }}</div>
+          </div>
+        </div>
+        <div class="col text-center">
+          <div class="flex flex-column">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small>CC</small>
+            </div>
+            <div>{{ unit.cc() }}</div>
+          </div>
+        </div>
+        <div class="col text-center">
+          <div class="flex flex-column">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small>FF</small>
+            </div>
+            <div>{{ unit.ff() }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg col-md-12">
+      <div class="row">
+        <div class="col-4 col-lg-4">
+          <div class="text-uppercase text-secondary-emphasis">
+            <small>Weapons</small>
+          </div>
+        </div>
+        <div class="col-2 col-lg-2 col-xxl-1 text-center">
+          <div class="text-uppercase text-secondary-emphasis">
+            <small>Range</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="text-uppercase text-secondary-emphasis">
+            <small>Firepower</small>
+          </div>
+        </div>
+      </div>
+      {% for weapon in unit.weapons %}
+        <div class="row">
+          <div class="col-4 col-lg-4">{{ weapon.name }}</div>
+          <div class="col-2 col-lg-2 col-xxl-1 text-center">{{ weapon.range() }}</div>
+          <div class="col">{{ weapon.firepower.join(", ") }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if unit.notes.len() > 0 %}
+      <div class="col-12">Notes: {{ unit.notes.join(", ") }}</div>
+    {% endif %}
+  </div>
 {% endmacro %}

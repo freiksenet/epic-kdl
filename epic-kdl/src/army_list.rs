@@ -50,6 +50,14 @@ pub struct FormationGroup {
     pub formations: Vec<Formation>,
 }
 
+impl FormationGroup {
+    pub fn formations_have_upgrades(&self) -> bool {
+        self.formations
+            .iter()
+            .any(|formation| !formation.upgrades.is_empty())
+    }
+}
+
 #[derive(Debug, knuffel::Decode)]
 pub struct ArmyListLimit {
     #[knuffel(children)]
@@ -100,8 +108,9 @@ impl fmt::Display for FormationUnit {
         if self.units.len() > 1 {
             write!(
                 f,
-                "any {} of the following units: {}",
+                "any {} of the following unit{}: {}",
                 count,
+                if self.units.len() > 1 { "s" } else { "" },
                 self.units.join(", ")
             )
         } else {
@@ -199,6 +208,8 @@ pub struct Unit {
     #[knuffel(child, unwrap(argument))]
     pub speed: Option<u32>,
     #[knuffel(child, unwrap(argument))]
+    pub ac_type: Option<String>,
+    #[knuffel(child, unwrap(argument))]
     pub armour: Option<u32>,
     #[knuffel(child, unwrap(argument))]
     pub cc: Option<u32>,
@@ -208,8 +219,53 @@ pub struct Unit {
     #[knuffel(children(name = "weapon"), default)]
     pub weapons: Vec<UnitWeapon>,
 
-    #[knuffel(child, unwrap(arguments))]
-    pub notes: Option<Vec<String>>,
+    #[knuffel(children(name = "loadout"), default)]
+    pub loadouts: Vec<UnitLoadout>,
+
+    #[knuffel(child, unwrap(arguments), default)]
+    pub notes: Vec<String>,
+}
+
+impl Unit {
+    pub fn speed_or_ac_type(&self) -> String {
+        match (&self.ac_type, &self.speed) {
+            (None, None) => "n/a".to_string(),
+            (None, Some(speed)) => format!("{}cm", speed),
+            (Some(ac_type), _) => ac_type.to_string(),
+        }
+    }
+
+    pub fn armour(&self) -> String {
+        match self.cc {
+            Some(armour) => format!("{}+", armour),
+            None => "n/a".to_string(),
+        }
+    }
+
+    pub fn cc(&self) -> String {
+        match self.cc {
+            Some(cc) => format!("{}+", cc),
+            None => "n/a".to_string(),
+        }
+    }
+
+    pub fn ff(&self) -> String {
+        match self.ff {
+            Some(ff) => format!("{}+", ff),
+            None => "n/a".to_string(),
+        }
+    }
+}
+
+#[derive(Debug, knuffel::Decode)]
+pub struct UnitLoadout {
+    #[knuffel(child, unwrap(argument))]
+    pub cc: Option<u32>,
+    #[knuffel(child, unwrap(argument))]
+    pub ff: Option<u32>,
+
+    #[knuffel(children(name = "weapon"), default)]
+    pub weapons: Vec<UnitWeapon>,
 }
 
 #[derive(Debug, knuffel::Decode)]
@@ -217,11 +273,20 @@ pub struct UnitWeapon {
     #[knuffel(argument)]
     pub name: String,
     #[knuffel(child, unwrap(argument))]
-    pub range: String,
+    pub range: Option<String>,
 
     #[knuffel(property)]
     pub x: Option<u32>,
 
     #[knuffel(child, unwrap(arguments))]
     pub firepower: Vec<String>,
+}
+
+impl UnitWeapon {
+    pub fn range(&self) -> String {
+        match &self.range {
+            Some(range) => range.to_string(),
+            None => "n/a".to_string(),
+        }
+    }
 }
