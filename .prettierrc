@@ -1,0 +1,16 @@
+{
+  "plugins": ["@bgotink/prettier-plugin-kdl", "prettier-plugin-django"],
+  "twigPrintWidth": 5000,
+  "twigMultiTags": ["with,endwith", "match,endmatch", "macro,endmacro"],
+  "twigAlwaysBreakObjects": false,
+  "twigSingleQuote": false,
+  "twigOutputEndblockName": true,
+  "overrides": [
+    {
+      "files": ["*.html", "*.jinja"],
+      "options": {
+        "parser": "melody"
+      }
+    }
+  ]
+}

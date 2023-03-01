@@ -1,0 +1,342 @@
+army_list \
+          "Codex Astartes Space Marine" \
+          schema="v1" \
+          version="2023-02-22" \
+          source="https://tp.net-armageddon.org/army-lists/space-marine-codex-astartes.html" \
+          {
+  text \
+       tag="fluff" \
+       "The Codex Astartes is the holy tome of these loyal Battle Brothers. The wisdom of the ancients is both scripture and the unbending rod by which they are measured. In war, they are fierce and as steadfast as those of old who stood beside the Emperor and broke the Legions of Horus. In faith and valour they are unmatched. The torches of their chapels burn bright with flames whose holy fire has shone upon an unchanging brotherhood for a hundred centuries. In their lives and in war, the Codex Astartes is their guide."
+  text \
+       tag="base_rules" \
+       "Codex Astartes Space Marine armies have a strategy rating of 5. Imperial Navy aircraft formations have an initiative rating of 2+. All other formations have an initiative rating of 1+."
+
+  formation-group "Space Marine Detachments" {
+    formation "Assault" {
+      cost 175
+      units {
+        unit 4 "Assault"
+      }
+      upgrades {
+        upgrade "Commander" max=1
+        upgrade "Vindicators" max=1
+      }
+    }
+    formation "Bike" {
+      cost 200
+      units {
+        unit 5 "Bike" "Attack Bike"
+      }
+      upgrades {
+        upgrade "Commander" max=1
+      }
+    }
+    formation "Devastator" {
+      cost 250
+      units {
+        unit 4 "Devastator"
+      }
+      upgrades {
+        upgrade "Commander" max=1
+        upgrade "Dreadnoughts" max=1
+        upgrade "Hunter" max=1
+        upgrade "Land Raiders" max=1
+        upgrade "Razorbacks" max=1
+      }
+      tags {
+        tag "Space Marine Transports"
+      }
+    }
+    // formation "Land Raider" {
+
+    // }
+    // formation "Land Speeder" {
+
+    // }
+    // formation "Landing Craft" {
+
+    // }
+    // formation "Predator" {
+
+    // }
+    // formation "Scout" {
+
+    // }
+    // formation "Strike Cruiser" {
+    //   limit {
+    //     max_list 1
+    //   }
+    // }
+  }
+
+  formation-group "Imperial Ally and Space Marine Aircraft Formations" {
+    help-text \
+              "(Up to a third of the points available may be spent on these formations.)"
+    limit {
+      max-points 0.33
+    }
+
+    formation-group "Imperial Navy Aircraft" {
+      formation "Marauder Squadron" {
+        cost 250
+        units {
+          unit 2 "Marauder Bomber"
+        }
+      }
+      formation "Thunderbolt Squadron" {
+        cost 175
+        units {
+          unit 2 "Thunderbolt Fighter"
+        }
+      }
+    }
+    formation-group "Titan Legion Battlegroups" {
+      formation "Reaver" {
+        cost 650
+        units {
+          unit 1 "Reaver Class Titan"
+        }
+      }
+      formation "Warhound" {
+        cost 275
+        units {
+          unit 1 "Warhound Class Titan"
+        }
+      }
+      formation "Warhound Pack" {
+        cost 500
+        units {
+          unit 2 "Warhound Class Titan"
+        }
+      }
+      formation "Warlord" {
+        cost 825
+        units {
+          unit 1 "Warlord Class Titan"
+        }
+      }
+    }
+    formation-group "Space Marine Aircraft" {
+      formation "Thunderhawk Gunship" {
+        cost 200
+        units {
+          unit 1 "Thunderhawk Gunship"
+        }
+      }
+    }
+  }
+
+  upgrades "Space Marine Upgrades" {
+    help-text "Each upgrade may be taken once per detachment"
+    upgrade "Battle Barge" {
+      cost 150
+      replace 1 "Strike Cruiser" "Battle Barge"
+    }
+
+    upgrades "Commander" {
+      upgrade "Captain" {
+        cost 50
+        unit 1 "Captain"
+      }
+      upgrade "Chaplain" {
+        cost 50
+        unit 1 "Chaplain"
+      }
+
+      upgrade "Librarian" {
+        cost 50
+        unit 1 "Librarian"
+      }
+      upgrade "Supreme Commander" {
+        limit {
+          max-list 1
+        }
+        cost 150
+        unit 1 "Supreme Commander"
+      }
+    }
+  }
+
+  forces "Space Marine Forces" {
+    initiative-rating 1
+    unit "Captain" {
+      unit-type "CH"
+      weapon "Power Weapon" {
+        range "(bc)"
+        firepower "Assault Weapons" "EA(+1)" "MW"
+      }
+      notes "Commander" "Invulnerable Save" "Leader"
+    }
+
+    unit "Chaplain" {
+      unit-type "CH"
+      weapon "Power Weapon" {
+        range "(bc)"
+        firepower "Assault Weapons" "EA(+1)" "MW"
+      }
+      notes "Inspiring" "Invulnerable Save" "Leader"
+    }
+
+    unit "Librarian" {
+      unit-type "CH"
+      weapon "Smite" {
+        range "(15cm)"
+        firepower "Small Arms" "EA(+1)" "MW"
+      }
+      weapon "Power Weapon" {
+        range "(bc)"
+        firepower "Assault Weapons" "EA(+1)" "MW"
+      }
+      notes "Invulnerable Save" "Leader"
+    }
+
+    unit "Supreme Commander" {
+      unit-type "CH"
+      weapon "Power Weapon" {
+        range "(bc)"
+        firepower "Assault Weapons" "EA(+1)" "MW"
+      }
+      notes "Invulnerable Save" "Supreme Commander"
+    }
+
+    unit "Assault" {
+      unit-type "INF"
+      speed 30
+      armour 4
+      cc 3
+      ff 5
+      weapon "Bolt Pistols" {
+        range "15"
+        firepower "Small Arms"
+      }
+      notes "Jump Packs"
+    }
+
+    unit "Bike" {
+      unit-type "INF"
+      speed 35
+      armour 4
+      cc 3
+      ff 4
+      weapon "Twin Bolters" {
+        range "15"
+        firepower "Small Arms"
+      }
+      notes "Mounted"
+    }
+
+    unit "Devastator" {
+      unit-type "INF"
+      speed 15
+      armour 4
+      cc 5
+      ff 3
+      weapon "Missile Launcher" x=2 {
+        range "45"
+        firepower "AP5+/AT6+"
+      }
+    }
+
+    unit "Scout" {
+      unit-type "INF"
+      speed 15
+      armour 5
+      cc 4
+      ff 5
+      weapon "Heavy Bolter" {
+        range "30"
+        firepower "AP5+"
+      }
+      notes "Infiltrator" "Scout"
+    }
+
+    unit "Tactical" {
+      unit-type "INF"
+      speed 15
+      armour 4
+      cc 4
+      ff 4
+      weapon "Missile Launcher" {
+        range "45"
+        firepower "AP5+/AT6+"
+      }
+    }
+    //     Terminator	INF	15cm	4+	3+	3+
+    // 2× Assault Cannon	30cm	AP5+/AT5+
+    // Power Weapons	(bc)	Assault WeaponsEA(+1)MW
+    // Reinforced ArmourTeleportThick Rear Armour
+    // Attack Bike	LV	35cm	4+	5+	5+
+    // Heavy Bolter	30cm	AP5+
+    // Land Speeder	LV	35cm	4+	6+	5+
+    // Multi-melta	15cm	MW5+
+    // and	(15cm)	Small ArmsMW
+    // ScoutSkimmer
+    // Land Speeder Tornado	LV	35cm	4+	6+	5+
+    // Assault Cannon	30cm	AP5+/AT5+
+    // Heavy Bolter	30cm	AP5+
+    // ScoutSkimmer
+    // Land Speeder Typhoon	LV	35cm	4+	6+	5+
+    // Twin Typhoon Missile	45cm	AP3+/AT5+
+    // Heavy Bolter	30cm	AP5+
+    // ScoutSkimmer
+    // Dreadnought	AV	15cm	3+	4+	4+
+    // 0–1× Missile Launcher	45cm	AP5+/AT6+
+    // 0–1× Twin Lascannon	45cm	AT4+
+    // 0–1× Assault Cannon	30cm	AP5+/AT5+
+    // 0–1× Power Fist	(bc)	Assault WeaponsEA(+1)MW
+    // Walker Armed with either a Missile Launcher and Twin Lascannon, or an Assault Cannon and Power Fist.
+    // Hunter	AV	30cm	5+	6+	6+
+    // Hunter-Killer	60cm	AT4+/AA4+
+    // Land Raider	AV	25cm	4+	6+	4+
+    // 2× Twin Lascannon	45cm	AT4+
+    // Twin Heavy Bolter	30cm	AP4+
+    // Reinforced ArmourThick Rear ArmourTransport May transport one Terminator unit or two infantry units without Jump Packs or Mounted.
+    // Predator Annihilator	AV	30cm	4+	6+	5+
+    // Twin Lascannon	45cm	AT4+
+    // 2× Lascannon	45cm	AT5+
+    // Predator Destructor	AV	30cm	4+	6+	3+
+    // Autocannon	45cm	AP5+/AT6+
+    // 2× Heavy Bolter	30cm	AP5+
+    // Razorback	AV	30cm	5+	6+	5+
+    // (4+)
+    // 0–1× Twin Lascannon	45cm	AT4+
+    // 0–1× Twin Heavy Bolter	30cm	AP4+
+    // Transport May transport one infantry unit (except a Terminator unit) without Jump Packs or Mounted. Armed with either a Twin Lascannon or a Twin Heavy Bolter. Razorbacks armed with a Twin Heavy Bolter have their firefight value increased to 4+.
+    // Rhino	AV	30cm	5+	6+	6+
+    // Storm Bolter	(15cm)	Small Arms
+    // Transport May transport two infantry units (except Terminator units) without Jump Packs or Mounted.
+    // Vindicator	AV	25cm	4+	6+	4+
+    // Demolisher	30cm	AP3+/AT4+IC
+    // Walker
+    // Whirlwind	AV	30cm	5+	6+	5+
+    // Whirlwind	45cm	1BPInd
+    // Landing Craft	AC/WE	Bomber	4+	5+	3+
+    // 2× Twin Lascannon	45cm	AT4+
+    // 3× Twin Heavy Bolter	15cm	AP4+/AA5+
+    // Damage Capacity 4FearlessPlanetfallReinforced ArmourTransport May transport twelve infantry units, Attack Bikes or Dreadnoughts; Terminator units and Dreadnoughts count as two units each; plus any six armoured vehicle units (except Dreadnoughts); Land Raiders count as one and a half units each, rounding up. Critical Hit Effect: The unit and all units being carried are destroyed. All units within 5cm suffer a hit.
+    // Thunderhawk Gunship	AC/WE	Bomber	4+	6+	4+
+    // Battle Cannon	75cm	AP4+/AT4+FxF
+    // 2× Twin Heavy Bolter	30cm	AP4+/AA5+FxF
+    // Twin Heavy Bolter	15cm	AP4+/AA5+Left
+    // Twin Heavy Bolter	15cm	AP4+/AA5+Right
+    // Damage Capacity 2PlanetfallReinforced ArmourTransport May transport eight infantry units, Attack Bikes or Dreadnoughts; Terminator units and Dreadnoughts count as two units each. Critical Hit Effect: The unit and all units being carried are destroyed.
+    // Battle Barge	SC	n/a	n/a	n/a	n/a
+    // Orbital Bombardment	n/a	14BPMW
+    // Slow and SteadyTransport May transport 60 infantry units, Attack Bikes, or Dreadnoughts; plus 60 armoured vehicle units (except Dreadnoughts); plus nine Thunderhawk Gunships and enough Drop Pods or Landing Craft to transport any other units being carried.
+    // Strike Cruiser	SC	n/a	n/a	n/a	n/a
+    // Orbital Bombardment	n/a	5BPMW
+    // Transport May transport 20 infantry units, Attack Bikes, or Dreadnoughts; plus 20 light vehicles or armoured vehicle units (except Attack Bikes and Dreadnoughts); plus six Thunderhawk Gunships and enough Drop Pods or Landing Craft to transport any other units being carried.
+    // Drop Pod	Special	n/a	n/a	n/a	n/a
+    // Deathwind	15cm	AP5+/AT5+
+    // PlanetfallTransport May transport one formation of only the following units: Devastator, Dreadnought, Tactical. After the drop pod lands, its Deathwind attacks all enemy units within 15cm. Each enemy formation attacked receives a Blast marker for coming under fire, and an extra Blast marker for each casualty. Then any troops carried in the drop pod must disembark within 5cm of the drop pod or within 5cm of another unit from the same formation that has already landed, so long as all units are placed within 15cm of the drop pod. Drop pod models should be removed from the board once the formation they transport has disembarked.
+    //
+  }
+
+  forces "Imperial Navy Forces" {
+    initiative-rating 2
+  }
+
+  forces "Titan Legion Forces" {
+    initiative-rating 1
+  }
+}

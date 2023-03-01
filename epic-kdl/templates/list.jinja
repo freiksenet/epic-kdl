@@ -1,0 +1,98 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+  {{ army_list.name }}
+{% endblock title %}
+
+{% block body %}
+  <div class="container">
+    <h1>{{ army_list.name }}</h1>
+    <blockquote>{{ fluff }}</blockquote>
+
+    {% for formation_group in army_list.formation_groups %}
+      {% call nested_formation_group(formation_group) %}
+    {% endfor %}
+  </div>
+{% endblock body %}
+
+{% macro nested_formation_group(formation_group) %}
+  <table class="table">
+    {% if formation_group.nested_formation_groups.len() > 0 %}
+      <thead>
+        <tr>
+          <th colspan="4">
+            <h2>{{ formation_group.name }}</h2>
+            {% match formation_group.help_text %}
+              {% when Some with(help_text) %}
+              <p class="fw-normal">{{ help_text }}</p>
+              {% when None %}
+            {% endmatch %}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for formation_group in formation_group.nested_formation_groups %}
+          <tr>
+            <td>
+              {% call formation_group(formation_group) %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    {% endif %}
+    <tbody>
+      <tr>
+        <td>
+          {% if formation_group.formations.len() > 0 %}
+            {% call formation_group(formation_group) %}
+          {% endif %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+{% endmacro %}
+
+{% macro formation_group(formation_group) %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="4">
+          <h2>{{ formation_group.name }}</h2>
+          {% match formation_group.help_text %}
+            {% when Some with(help_text) %}
+            <p class="fw-normal">{{ help_text }}</p>
+            {% when None %}
+          {% endmatch %}
+        </th>
+      </tr>
+      <tr>
+        <th scope="col">Formation</th>
+        <th scope="col">Units</th>
+        <th scope="col">Upgrades</th>
+        <th scope="col">Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for formation in formation_group.formations %}
+        <tr>
+          <td>{{ formation.name }}</td>
+          <td>
+            {% for unit in formation.units %}
+              <p>{{ unit }}</p>
+            {% endfor %}
+          </td>
+          <td>
+            {% for upgrade in formation.upgrades %}
+              <p>{{ upgrade }}</p>
+            {% endfor %}
+          </td>
+          <td>{{ formation.cost }} points</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endmacro %}
+
+{% macro upgrades(upgrades) %}
+  <div></div>
+{% endmacro %}

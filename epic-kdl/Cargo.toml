@@ -1,0 +1,11 @@
+[package]
+name = "epic-kdl"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+kdl = "4.6.0"
+miette = { version = "4.7.1", features = ["fancy"] }
+knuffel = { git= "https://github.com/rnarkk/knuffel.git", branch="floating-point" }
+askama = "0.10"
+english-numbers = "0.3.3"
