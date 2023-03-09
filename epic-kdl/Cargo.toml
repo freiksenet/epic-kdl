@@ -8,6 +8,6 @@ license = "MIT OR Apache-2.0"
 [dependencies]
 kdl = "4.6.0"
 miette = { version = "4.7.1", features = ["fancy"] }
-knuffel = { git= "https://github.com/rnarkk/knuffel.git", branch="floating-point" }
+knuffel = { path = "../vendor/knuffel" }
 askama = "0.11.1"
 english-numbers = "0.3.3"

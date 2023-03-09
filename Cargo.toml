@@ -2,4 +2,6 @@
 resolver = "2"
 members = [
     "epic-kdl",
+    "vendor/knuffel",
+    "vendor/knuffel/derive"
 ]

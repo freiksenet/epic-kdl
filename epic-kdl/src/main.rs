@@ -2,6 +2,7 @@ use askama::Template;
 use std::fs;
 
 mod army_list;
+mod decode_utils;
 mod templates;
 
 use army_list::*;

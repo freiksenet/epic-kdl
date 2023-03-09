@@ -1,0 +1,26 @@
+[package]
+name = "knuffel-derive"
+version = "2.0.0"
+edition = "2021"
+description = """
+    A derive implementation for knuffel KDL parser
+"""
+license = "MIT/Apache-2.0"
+keywords = ["kdl", "configuration"]
+homepage = "https://github.com/tailhook/knuffel"
+documentation = "https://docs.rs/knuffel"
+readme = "README.md"
+
+[lib]
+proc_macro = true
+
+[dependencies]
+heck = "0.4.0"
+syn = {version="1.0.81", features=["full", "extra-traits"]}
+quote = "1.0.10"
+proc-macro2 = "1.0.32"
+proc-macro-error = "1.0.4"
+
+[dev-dependencies]
+knuffel = { path=".." }
+miette = { version="4.3.0", features=["fancy"] }

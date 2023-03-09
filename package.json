@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@bgotink/prettier-plugin-kdl": "^0.1.2",
-    "prettier-plugin-django": "^0.5.7"
+    "prettier-plugin-django": "^0.5.7",
+    "prettier-plugin-twig-melody": "^0.4.6"
   }
 }

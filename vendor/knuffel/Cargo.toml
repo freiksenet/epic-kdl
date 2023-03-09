@@ -1,0 +1,33 @@
+[package]
+name = "knuffel"
+version = "2.0.0"
+edition = "2021"
+description = """
+    Another KDL language implementation
+"""
+license = "MIT/Apache-2.0"
+keywords = ["kdl", "configuration", "parser"]
+categories = ["parser-implementations", "config", "encoding"]
+homepage = "https://github.com/tailhook/knuffel"
+documentation = "https://docs.rs/knuffel"
+rust-version = "1.56.0"
+readme = "README.md"
+
+[dependencies]
+chumsky = {version="0.8.0", default-features=false}
+knuffel-derive = {path="./derive", version= "^2.0.0", optional=true}
+base64 = {version="0.13.0", optional=true}
+unicode-width = {version="0.1.9", optional=true}
+minicbor = {version="0.13.2", optional=true, features=["std", "derive"]}
+miette = "4.3.0"
+thiserror = "1.0.30"
+
+[dev-dependencies]
+miette = { version="4.3.0", features=["fancy"] }
+assert-json-diff = "2.0.1"
+serde_json = "1.0"
+
+[features]
+default = ["derive", "base64", "line-numbers"]
+derive = ["knuffel-derive"]
+line-numbers = ["unicode-width"]

@@ -108,108 +108,147 @@
 {% macro forces(forces) %}
   <h3>{{ forces.name }}</h3>
   <div class="col-12">
-    <div class="row gy-2">
+    <div class="row gy-3">
       {% for unit in forces.units %}
-        {% if loop.index0 % 2 == 0 %}
-          <div class="col-12">
-            {% call unit(unit) %}
-          </div>
-        {% else %}
-          <div class="col-12 bg-secondary-subtle">
-            {% call unit(unit) %}
-          </div>
-        {% endif %}
+        <div class="col-12">
+          {% call unit(unit) %}
+        </div>
       {% endfor %}
     </div>
   </div>
 {% endmacro %}
 
 {% macro unit(unit) %}
-  <div class="row">
-    <div class="col-md-2 col-sm-auto">
-      <div class="flex flex-column">
-        <div class="text-uppercase text-secondary-emphasis">
-          <small>Name</small>
-        </div>
-        <div class="fw-semibold">{{ unit.name }}</div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-xxl-3 col-md">
-      <div class="row">
-        <div class="col text-center">
-          <div class="flex flex-column">
-            <div class="text-uppercase text-secondary-emphasis">
-              <small>Type</small>
-            </div>
-            <div>{{ unit.unit_type }}</div>
-          </div>
-        </div>
-        <div class="col text-center">
-          <div class="flex flex-column">
-            <div class="text-uppercase text-secondary-emphasis">
-              <small>Speed</small>
-            </div>
-            <div>{{ unit.speed_or_ac_type() }}</div>
-          </div>
-        </div>
-        <div class="col text-center">
-          <div class="flex flex-column">
-            <div class="text-uppercase text-secondary-emphasis">
-              <small>Armour</small>
-            </div>
-            <div>{{ unit.armour() }}</div>
-          </div>
-        </div>
-        <div class="col text-center">
-          <div class="flex flex-column">
-            <div class="text-uppercase text-secondary-emphasis">
-              <small>CC</small>
-            </div>
-            <div>{{ unit.cc() }}</div>
-          </div>
-        </div>
-        <div class="col text-center">
-          <div class="flex flex-column">
-            <div class="text-uppercase text-secondary-emphasis">
-              <small>FF</small>
-            </div>
-            <div>{{ unit.ff() }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg col-md-12">
-      <div class="row">
-        <div class="col-4 col-lg-4">
-          <div class="text-uppercase text-secondary-emphasis">
-            <small>Weapons</small>
-          </div>
-        </div>
-        <div class="col-2 col-lg-2 col-xxl-1 text-center">
-          <div class="text-uppercase text-secondary-emphasis">
-            <small>Range</small>
-          </div>
-        </div>
-        <div class="col">
-          <div class="text-uppercase text-secondary-emphasis">
-            <small>Firepower</small>
-          </div>
-        </div>
-      </div>
-      {% for weapon in unit.weapons %}
+  <div class="px-2">
+    <div class="row border border-secondary">
+      <div class="col-12 col-lg-4 border-right-0 border-lg-right border-bottom border-lg-bottom-0">
         <div class="row">
-          <div class="col-4 col-lg-4">
-            {% if weapon.x.is_some() %}
-              {{ weapon.x.unwrap() }}x
-            {% endif %}{{ weapon.name }}
+          <div class="col-12 border-bottom bg-secondary-subtle">
+            <div class="flex flex-column text-align-center">
+              <div class="fw-bold fs-5 text-center">{{ unit.name }}</div>
+            </div>
           </div>
-          <div class="col-2 col-lg-2 col-xxl-1 text-center">{{ weapon.range() }}</div>
-          <div class="col">{{ weapon.firepower.join(", ") }}</div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col text-center">
+                <div class="flex flex-column">
+                  <div class="text-uppercase text-secondary-emphasis">
+                    <small class="fw-light">Type</small>
+                  </div>
+                  <div>{{ unit.unit_type }}</div>
+                </div>
+              </div>
+              <div class="col text-center">
+                <div class="flex flex-column">
+                  <div class="text-uppercase text-secondary-emphasis">
+                    <small class="fw-light">Speed</small>
+                  </div>
+                  <div>{{ unit.speed_or_ac_type() }}</div>
+                </div>
+              </div>
+              <div class="col text-center">
+                <div class="flex flex-column">
+                  <div class="text-uppercase text-secondary-emphasis">
+                    <small class="fw-light">Armour</small>
+                  </div>
+                  <div>{{ unit.armour() }}</div>
+                </div>
+              </div>
+              <div class="col text-center">
+                <div class="flex flex-column">
+                  <div class="text-uppercase text-secondary-emphasis">
+                    <small class="fw-light">CC</small>
+                  </div>
+                  <div>{{ unit.cc() }}</div>
+                </div>
+              </div>
+              <div class="col text-center">
+                <div class="flex flex-column">
+                  <div class="text-uppercase text-secondary-emphasis">
+                    <small class="fw-light">FF</small>
+                  </div>
+                  <div>{{ unit.ff() }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      {% endfor %}
+      </div>
+      <div class="col-lg col-md-12 pb-1 pb-lg-2">
+        <div class="row">
+          <div class="col-6 col-md-5 col-lg-4">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small class="fw-light">Weapons</small>
+            </div>
+          </div>
+          <div class="col-2 col-lg-2 col-xxl-1 text-center">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small class="fw-light">Range</small>
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-uppercase text-secondary-emphasis">
+              <small class="fw-light">Firepower</small>
+            </div>
+          </div>
+        </div>
+        {% for weapon in unit.weapons %}
+          <div class="row">
+            <div class="col-6 col-md-5 col-lg-4">
+              {% if weapon.x.is_some() %}
+                {{ weapon.x.unwrap() }}x
+              {% endif %}{{ weapon.name }}
+            </div>
+            <div class="col-2 col-lg-2 col-xxl-1 text-center">{{ weapon.range() }}</div>
+            <div class="col">
+              {% for firepower in weapon.firepower %}
+                {{ firepower }}{% if loop.last -%}
+
+                {% else %}
+                  ,
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% if unit.notes.len() > 0 %}
+        <div class="col-12 border-top">
+          <div class="row gx-0 m-0">
+            <div class="col-12 text-uppercase text-secondary-emphasis">
+              <small class="fw-light">Notes</small>
+            </div>
+            <div class="row pb-1 gx-0 row-cols-1">
+              {% if unit.has_special_rules() %}
+                <div class="col">
+                  {% for note in unit.special_rules() %}
+                    <span class="fst-italic epic-kdl-keyword">{{ note }}</span>{% if loop.last != true -%}
+                      ,
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              {% match unit.damage_capacity() %}
+                {% when Some with(dc) %}
+                <div class="col">
+                  <span class="fst-italic epic-kdl-keyword">Damage Capacity {{ dc.amount }}</span>
+                  Critical Hit Effect: {{ dc.critical_hit }}
+                </div>
+                {% when None %}
+              {% endmatch %}
+              {% match unit.transport() %}
+                {% when Some with(tc) %}
+                <div class="col">
+                  <span class="fst-italic epic-kdl-keyword">Transport</span>:
+                  {{ tc.text }}
+                </div>
+                {% when None %}
+              {% endmatch %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </div>
-    {% if unit.notes.len() > 0 %}
-      <div class="col-12">Notes: {{ unit.notes.join(", ") }}</div>
-    {% endif %}
   </div>
 {% endmacro %}
