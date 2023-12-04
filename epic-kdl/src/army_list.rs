@@ -367,6 +367,19 @@ pub struct UnitTransport {
     pub text: String,
 }
 
+impl UnitTransport {
+    pub fn description(&self) -> String {
+        format!(
+            "May transport {}.",
+            self.capacitities
+                .iter()
+                .map(|c| c.description())
+                .collect::<Vec<String>>()
+                .join(", and")
+        )
+    }
+}
+
 #[derive(Debug, knuffel::Decode)]
 pub struct UnitTransportCapacity {
     #[knuffel(argument)]
@@ -381,6 +394,35 @@ pub struct UnitTransportCapacity {
 }
 
 impl UnitTransportCapacity {
+    pub fn description(&self) -> String {
+        let amount = self.amount.to_string();
+        let allowed = self
+            .all_allowed()
+            .map(|s| s.to_string())
+            .collect::<Vec<String>>();
+        let allowed_str = if allowed.is_empty() {
+            "units".to_string()
+        } else {
+            allowed.join(", ")
+        };
+        let disallowed = self
+            .all_disallowed()
+            .map(|s| s.to_string())
+            .collect::<Vec<String>>();
+        let disallowed_str = if disallowed.is_empty() {
+            "".to_string()
+        } else {
+            format!("(except {})", disallowed.join(", "))
+        };
+        vec![
+            amount,
+            allowed_str,
+            disallowed_str,
+            // self.cost.description().map(|desc| format!("; {}", desc)),
+        ]
+        .join(" ")
+    }
+
     pub fn all_allowed(&self) -> impl Iterator<Item = &UnitSelector> {
         self.allow.iter().flat_map(|a| a.selectors.iter())
     }
@@ -395,6 +437,28 @@ pub enum UnitTransportCapacityAmount {
     Fixed(u32),
     Formation,
     Text(String),
+}
+
+impl fmt::Display for UnitTransportCapacityAmount {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            UnitTransportCapacityAmount::Fixed(x) => write!(
+                f,
+                "{}",
+                english_numbers::convert(
+                    *x as i64,
+                    english_numbers::Formatting {
+                        title_case: false,
+                        spaces: true,
+                        conjunctions: true,
+                        ..Default::default()
+                    }
+                )
+            ),
+            UnitTransportCapacityAmount::Formation => write!(f, "a formation of"),
+            UnitTransportCapacityAmount::Text(text) => write!(f, "{}", text),
+        }
+    }
 }
 
 impl<S: knuffel::traits::ErrorSpan> knuffel::DecodeScalar<S> for UnitTransportCapacityAmount {
@@ -455,6 +519,28 @@ pub enum UnitSelector {
     UnitType(String),
     Unit(String),
     SpecialRule(String),
+}
+
+impl fmt::Display for UnitSelector {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            UnitSelector::UnitType(typ) => write!(
+                f,
+                "{}",
+                if typ == "INF" {
+                    "infantry unit(s)"
+                } else if typ == "AV" {
+                    "armored vehicles"
+                } else if typ == "LV" {
+                    "light vehicles"
+                } else {
+                    "units"
+                }
+            ),
+            UnitSelector::Unit(unit) => write!(f, "{}", unit),
+            UnitSelector::SpecialRule(sr) => write!(f, "units with {}", sr),
+        }
+    }
 }
 
 impl<S: knuffel::traits::ErrorSpan> knuffel::DecodeScalar<S> for UnitSelector {
@@ -523,6 +609,9 @@ pub struct UnitTransportCost {
 
 #[derive(Debug, knuffel::Decode)]
 pub struct UnitLoadout {
+    #[knuffel(argument)]
+    pub name: Option<String>,
+
     #[knuffel(child, unwrap(argument))]
     pub cc: Option<u32>,
     #[knuffel(child, unwrap(argument))]
@@ -530,6 +619,57 @@ pub struct UnitLoadout {
 
     #[knuffel(children(name = "weapon"), default)]
     pub weapons: Vec<UnitWeapon>,
+}
+
+impl UnitLoadout {
+    pub fn name(&self, index: usize) -> String {
+        if let Some(name) = &self.name {
+            name.clone()
+        } else {
+            format!("Option {}", index)
+        }
+    }
+
+    pub fn description(&self) -> String {
+        self.weapons
+            .iter()
+            .map(|weapon| {
+                format!(
+                    "{} {}",
+                    english_numbers::convert(
+                        weapon.x.unwrap_or(1) as i64,
+                        english_numbers::Formatting {
+                            title_case: false,
+                            spaces: true,
+                            conjunctions: true,
+                            ..Default::default()
+                        }
+                    ),
+                    weapon.name
+                )
+            })
+            .collect::<Vec<String>>()
+            .join(", ")
+    }
+
+    pub fn cc_or_ff(&self) -> Option<String> {
+        let cc = self.cc.map(|cc| format!("has CC value of {}+", cc));
+        let ff = self.ff.map(|ff| format!("has FF value of {}+", ff));
+        if cc.is_some() && ff.is_some() {
+            Some(format!("{} and {}", cc.unwrap(), ff.unwrap()))
+        } else if cc.is_some() {
+            cc
+        } else if ff.is_some() {
+            ff
+        } else {
+            None
+        }
+    }
+
+    pub fn cc_or_ff_postfix(&self) -> Option<String> {
+        self.cc_or_ff()
+            .map(|cc_or_ff| format!("Unit armed with {} has {}", self.description(), cc_or_ff))
+    }
 }
 
 #[derive(Debug, knuffel::Decode)]
@@ -550,6 +690,20 @@ pub struct UnitWeapon {
 
     #[knuffel(children, default)]
     pub special_rules: Vec<UnitWeaponSpecialRule>,
+}
+
+impl UnitWeapon {
+    pub fn firepower_as_string(&self) -> String {
+        let mut res = Vec::new();
+        res.push(self.firepower.join(", "));
+        if let Some(arc) = &self.arc {
+            res.push(arc.to_string());
+        };
+        for sr in &self.special_rules {
+            res.push(sr.to_string())
+        }
+        res.join(", ")
+    }
 }
 
 #[derive(Debug)]

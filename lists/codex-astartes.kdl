@@ -473,7 +473,7 @@ army_list \
       transport {
         capacity 1 {
           allow (unit-type)"INF"
-          disallow (unit-type)"Terminator" (sr)"Jump Packs" (sr)"Mounted"
+          disallow (unit)"Terminator" (sr)"Jump Packs" (sr)"Mounted"
         }
         text \
              "May transport one infantry unit (except a Terminator unit) without Jump Packs or Mounted."
